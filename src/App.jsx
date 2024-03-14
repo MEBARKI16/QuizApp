@@ -6,7 +6,9 @@ function App() {
     return (
         <div>
             <Header />
-            <Quiz />
+            <main>
+                <Quiz />
+            </main>
         </div>
     )
 }
