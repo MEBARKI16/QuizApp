@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const QuestionTimer = () => {
+const QuestionTimer = ({ timeOut, onTimeOut }) => {
+    const [remainingTime, setRemainingTime] = useState(timeOut)
+    useEffect(() => {
+        setTimeout(() => onTimeOut(), timeOut)
+    }, [timeOut, onTimeOut])
+
+    useEffect(() => {
+        setInterval(() => {
+            setRemainingTime(prev => { return (prev - 200) })
+            console.log(remainingTime)
+        }, 200)
+    }, [])
     return (
-        <div>QuestionTimer</div>
+        <progress max={timeOut} value={remainingTime} id="question-time" />
     )
 }
 

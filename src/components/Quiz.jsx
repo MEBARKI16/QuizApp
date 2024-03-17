@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import QUESTIONS from '../questions';
 import completed from "../assets/quiz-complete.png";
+import QuestionTimer from './QuestionTimer';
 
 const Quiz = () => {
     const [reponses, setReponses] = useState([]);
+    console.log(reponses)
     const currentQuestion = reponses.length;
     const newTab = QUESTIONS[currentQuestion]?.answers
-    ? [...QUESTIONS[currentQuestion].answers].sort(() => Math.random() - 0.5)
-    : [];
-  
+        ? [...QUESTIONS[currentQuestion].answers].sort(() => Math.random() - 0.5)
+        : [];
+
 
     const handleSelectAnswer = (answer) => {
         setReponses(prev => ([...prev, answer]));
@@ -27,6 +29,7 @@ const Quiz = () => {
                 :
                 <div id="quiz">
                     <div id="question">
+                        <QuestionTimer timeOut={10000} onTimeOut={() => handleSelectAnswer(null)} />
                         <h2>{QUESTIONS[currentQuestion]?.text}</h2>
                         <ul id="answers">
                             {newTab.map((qst, index) => (
