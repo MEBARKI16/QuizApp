@@ -4,6 +4,8 @@ import QUESTIONS from '../questions'
 const Quiz = () => {
     const [reponses, setReponses] = useState([]);
     const currentQuestion = reponses.length;
+    const newTab = [...QUESTIONS[currentQuestion].answers];
+    newTab.sort(() => Math.random() - 0.5);
     const HandleSelectAnswer = (answer) => {
         setReponses(prev => ([...prev, answer]))
     }
@@ -12,7 +14,7 @@ const Quiz = () => {
             <div id="question">
                 <h2>{QUESTIONS[currentQuestion].text}</h2>
                 <ul id="answers">
-                    {QUESTIONS[currentQuestion].answers.map(qst => (
+                    {newTab.map(qst => (
                         <li key={qst} className="answer">
                             <button onClick={() => { HandleSelectAnswer(qst) }}>{qst}</button>
                         </li>
