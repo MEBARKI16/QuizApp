@@ -14,8 +14,8 @@ const Quiz = () => {
 
     const handleSelectAnswer = useCallback((answer) => {
         setReponses(prev => ([...prev, answer]));
-    });
-
+    }, []);
+    const onTimeOut = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer])
     const quizIsComplete = (reponses.length === QUESTIONS.length);
     console.log(quizIsComplete);
 
@@ -29,7 +29,7 @@ const Quiz = () => {
                 :
                 <div id="quiz">
                     <div id="question">
-                        <QuestionTimer timeOut={10000} onTimeOut={() => handleSelectAnswer(null)} />
+                        <QuestionTimer timeOut={10000} onTimeOut={onTimeOut} />
                         <h2>{QUESTIONS[currentQuestion]?.text}</h2>
                         <ul id="answers">
                             {newTab.map((qst, index) => (
