@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import QUESTIONS from '../questions';
 import completed from "../assets/quiz-complete.png";
 import QuestionTimer from './QuestionTimer';
@@ -12,9 +12,9 @@ const Quiz = () => {
         : [];
 
 
-    const handleSelectAnswer = (answer) => {
+    const handleSelectAnswer = useCallback((answer) => {
         setReponses(prev => ([...prev, answer]));
-    };
+    });
 
     const quizIsComplete = (reponses.length === QUESTIONS.length);
     console.log(quizIsComplete);
