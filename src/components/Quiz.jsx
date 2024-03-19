@@ -29,7 +29,7 @@ const Quiz = () => {
                 :
                 <div id="quiz">
                     <div id="question">
-                        <QuestionTimer timeOut={10000} onTimeOut={onTimeOut} />
+                        <QuestionTimer key={QUESTIONS[currentQuestion]?.text} timeOut={10000} onTimeOut={onTimeOut} />
                         <h2>{QUESTIONS[currentQuestion]?.text}</h2>
                         <ul id="answers">
                             {newTab.map((qst, index) => (
