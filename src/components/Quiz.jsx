@@ -1,16 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import QUESTIONS from '../questions';
 import completed from "../assets/quiz-complete.png";
-import QuestionTimer from './QuestionTimer';
+import Question from './Question';
 
 const Quiz = () => {
     const [reponses, setReponses] = useState([]);
     const [answerState, setAnswerState] = useState("")
     const currentQuestion = answerState === "" ? reponses.length : reponses.length - 1;
-    const newTab = QUESTIONS[currentQuestion]?.answers
-        ? [...QUESTIONS[currentQuestion].answers].sort(() => Math.random() - 0.5)
-        : [];
-
 
     const handleSelectAnswer = useCallback((answer) => {
         setReponses(prev => ([...prev, answer]));
@@ -39,19 +35,15 @@ const Quiz = () => {
                 </div>
                 :
                 <div id="quiz">
-                    <div id="question">
-                        <QuestionTimer key={QUESTIONS[currentQuestion]?.text} timeOut={10000} onTimeOut={onTimeOut} />
-                        <h2>{QUESTIONS[currentQuestion]?.text}</h2>
-                        <ul id="answers">
-                            {newTab.map((qst, index) => {
-                                const isSelected = reponses[reponses.length - 1] === qst;
-                                const style = isSelected ? answerState : "";
-                                return <li key={index} className="answer">
-                                    <button className={style} onClick={() => handleSelectAnswer(qst)}>{qst}</button>
-                                </li>
-                            })}
-                        </ul>
-                    </div>
+                    <Question
+                        QUESTIONS={QUESTIONS}
+                        onTimeOut={onTimeOut}
+                        currentQuestion={currentQuestion}
+                        reponses={reponses}
+                        handleSelectAnswer={handleSelectAnswer}
+                        answerState={answerState}
+                        key={QUESTIONS[currentQuestion]?.text}
+                    />
                 </div>
             }
         </>
