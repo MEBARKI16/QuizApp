@@ -5,24 +5,12 @@ import Question from './Question';
 
 const Quiz = () => {
     const [reponses, setReponses] = useState([]);
-    const [answerState, setAnswerState] = useState("")
-    const currentQuestion = answerState === "" ? reponses.length : reponses.length - 1;
+    const currentQuestion = reponses.length;
 
-    const handleSelectAnswer = useCallback((answer) => {
+    const onSelectAnswer = useCallback((answer) => {
         setReponses(prev => ([...prev, answer]));
-        setAnswerState("selected")
-        setTimeout(() => {
-            if (answer === QUESTIONS[currentQuestion].answers[0]) {
-                setAnswerState("correct");
-            }
-            else { setAnswerState("wrong"); }
-            setTimeout(() => {
-                setAnswerState("")
-            }, 2000);
-        }, 1000)
-        console.log(answerState)
-    }, [currentQuestion]);
-    const onTimeOut = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer])
+    }, []);
+    const onTimeOut = useCallback(() => onSelectAnswer(null), [onSelectAnswer])
     const quizIsComplete = (reponses.length === QUESTIONS.length);
     console.log(quizIsComplete);
 
@@ -36,13 +24,10 @@ const Quiz = () => {
                 :
                 <div id="quiz">
                     <Question
-                        QUESTIONS={QUESTIONS}
                         onTimeOut={onTimeOut}
                         currentQuestion={currentQuestion}
-                        reponses={reponses}
-                        handleSelectAnswer={handleSelectAnswer}
-                        answerState={answerState}
-                        key={QUESTIONS[currentQuestion]?.text}
+                        onSelectAnswer={onSelectAnswer}
+                        key={currentQuestion}
                     />
                 </div>
             }

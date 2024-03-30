@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-export const Answers = ({ reponses, handleSelectAnswer, answerState, answers }) => {
+export const Answers = ({ reponse, handleSelectAnswer, answerState, answers }) => {
     const newTab = useRef();
     if (!newTab.current) {
         newTab.current = [...answers];
@@ -10,10 +10,10 @@ export const Answers = ({ reponses, handleSelectAnswer, answerState, answers }) 
     return (
         <ul id="answers">
             {newTab.current.map((qst, index) => {
-                const isSelected = reponses[reponses.length - 1] === qst;
+                const isSelected = reponse === qst;
                 const style = isSelected ? answerState : "";
                 return <li key={index} className="answer">
-                    <button className={style} onClick={() => handleSelectAnswer(qst)}>{qst}</button>
+                    <button className={style} onClick={() => handleSelectAnswer(qst)} disabled={answerState != ''}>{qst}</button>
                 </li>
             })}
         </ul>
